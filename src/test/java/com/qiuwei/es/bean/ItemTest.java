@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+
 /**
  * @Author: qiuwei@19pay.com.cn
  * @Date: 2019-11-18.
@@ -78,9 +80,41 @@ public class ItemTest {
         }
 
 
+        /**
+         * save方法 如果存在就是修改,如果不存在就是添加
+         */
         itemRepository.save(item);
         System.out.println("保存成功");
 
+
+    }
+
+    /**
+     * 批量添加
+     */
+
+    @Test
+    public void batchSave() {
+
+        ArrayList<Item> items = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            Item item = new Item();
+            Long id = Long.valueOf(String.valueOf(i));
+            item.setId(id);
+            item.setTitle("小米手机" + (i + 1));
+            item.setBrand("小米");
+            item.setCategory("手机");
+            item.setPrice(3499.00);
+            item.setImages("http://image.baidu.com/13123.jpg");
+            items.add(item);
+        }
+
+        /**
+         * save方法 如果存在就是修改,如果不存在就是添加
+         */
+        itemRepository.saveAll(items);
+        System.out.println("批量添加成功:" + items.toString());
 
     }
 }
