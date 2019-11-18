@@ -41,5 +41,10 @@ public class ItemTest {
 
     @Test
     public void delIndex() {
+
+        boolean b = template.deleteIndex(Item.class);
+
+        System.out.println(b);
+
     }
 }
